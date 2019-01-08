@@ -18,6 +18,7 @@ defmodule RustlerRead do
         "binary_search_ruslter_random" => fn -> pwn_random() end,
         "fixed_index_pread" => fn -> read_file(file, 1) end,
         "random_index_pread" => fn -> multiple_pread(file) end,
+        "random_maker" => fn -> random_maker() end,
         }
     )
   end
@@ -31,6 +32,11 @@ defmodule RustlerRead do
     list = 0..256
     target = Enum.take_random(list, 10)
     NifReader.pwn_check(target)
+  end
+
+  def random_maker do
+    list = 0..256
+    Enum.take_random(list, 10)
   end
 end
 
