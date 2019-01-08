@@ -19,8 +19,8 @@ defmodule RustlerRead do
 
     Benchee.run(
       %{
-        "fixed_index_rustler_single" => fn -> NifReader.seek_line(1) end,
-        "fixed_index_rustler_29" => fn -> NifReader.seek_29_times(1) end,
+        "fixed_index_rustler" => fn -> NifReader.seek_line(1) end,
+        "fixed_index_rustler_29_times" => fn -> NifReader.seek_29_times(1) end,
         "binary_search_ruslter_has_match" => fn -> pwn(match_target) end,
         "binary_search_ruslter_no_match_1" => fn -> pwn(no_match_1) end,
         "binary_search_ruslter_no_match_2" => fn -> pwn(no_match_2) end,
