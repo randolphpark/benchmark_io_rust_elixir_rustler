@@ -10,11 +10,23 @@ defmodule RustlerRead do
 
   def bench() do
     {:ok, file} = :file.open("native/nifreader/database_fixture", [:binary, :read])
+    match_target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 171]
+    no_match_1 = [1, 93, 88, 98, 146, 95, 31, 149, 60, 2]
+    no_match_2 = [51, 93, 88, 98, 146, 95, 31, 149, 60, 2]
+    no_match_3 = [101, 93, 88, 98, 146, 95, 31, 149, 60, 2]
+    no_match_4 = [150, 93, 88, 98, 146, 95, 31, 149, 60, 2]
+    no_match_5 = [221, 93, 88, 98, 146, 95, 31, 149, 60, 2]
+
     Benchee.run(
       %{
         "fixed_index_rustler_single" => fn -> NifReader.seek_line(1) end,
         "fixed_index_rustler_29" => fn -> NifReader.seek_29_times(1) end,
-        "binary_search_ruslter_single" => fn -> pwn() end,
+        "binary_search_ruslter_has_match" => fn -> pwn(match_target) end,
+        "binary_search_ruslter_no_match_1" => fn -> pwn(no_match_1) end,
+        "binary_search_ruslter_no_match_2" => fn -> pwn(no_match_2) end,
+        "binary_search_ruslter_no_match_3" => fn -> pwn(no_match_3) end,
+        "binary_search_ruslter_no_match_4" => fn -> pwn(no_match_4) end,
+        "binary_search_ruslter_no_match_5" => fn -> pwn(no_match_5) end,
         "binary_search_ruslter_random" => fn -> pwn_random() end,
         "fixed_index_pread" => fn -> read_file(file, 1) end,
         "random_index_pread" => fn -> multiple_pread(file) end,
@@ -23,8 +35,11 @@ defmodule RustlerRead do
     )
   end
 
-  def pwn() do
-    target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 171];
+  def pwn(target) do
+    NifReader.pwn_check(target)
+  end
+
+  def pwn(target) do
     NifReader.pwn_check(target)
   end
 

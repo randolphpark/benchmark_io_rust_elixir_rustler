@@ -9,12 +9,32 @@ use std::io::Cursor;
 use std::io::SeekFrom;
 use test::Bencher;
 
-static FILE_PATH: &str = "database_fixture";
+static FILE_PATH: &str = "hibp_binary";
 static RECORD_SIZE: u64 = 14; // bytes
 
 fn main() {
-    let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 171];
-    run(target);
+    // let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 171]; // has match
+    // let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 11]; // no match
+    // let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 1]; // no match
+
+
+    let target = [1, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
+
+    let target = [51, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
+
+    let target = [101, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
+
+    let target = [150, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
+
+    let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
+
+    let target = [250, 93, 88, 98, 146, 95, 31, 149, 60, 2]; // no match
+    println!("{:?} - {:?}", target, run(target));
 }
 
 pub fn run(target: [u8; 10]) -> u32 {
@@ -124,8 +144,16 @@ fn benchmark_read_30_time_with_seek(b: &mut Bencher) {
 }
 
 #[bench]
-fn binary_search(b: &mut Bencher) {
-    let target = [228, 177, 247, 160, 235, 36, 35, 105, 236, 168];
+fn binary_search_has_match(b: &mut Bencher) {
+    let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 171];
+    b.iter(|| {
+        run(target);
+    });
+}
+
+#[bench]
+fn binary_search_no_match(b: &mut Bencher) {
+    let target = [221, 93, 88, 98, 146, 95, 31, 149, 60, 11];
     b.iter(|| {
         run(target);
     });
