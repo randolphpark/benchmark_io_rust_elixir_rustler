@@ -21,7 +21,6 @@ defmodule RustlerRead do
         "benchmark_pread" => fn -> read_file(file, 0) end
         }
     )
-    
   end
 end
 

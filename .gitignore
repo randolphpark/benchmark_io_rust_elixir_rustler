@@ -1,4 +1,5 @@
 /elixir_read/_build
 /rustler_read/_build
 /rust_read/target
+/rustler_read/native/nifreader/target
 .DS_Store
