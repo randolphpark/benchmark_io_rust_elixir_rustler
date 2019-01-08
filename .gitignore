@@ -1,0 +1,4 @@
+/elixir_read/_build
+/rustler_read/_build
+/rust_read/target
+.DS_Store

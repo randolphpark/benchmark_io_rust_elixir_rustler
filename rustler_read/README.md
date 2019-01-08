@@ -1,0 +1,3 @@
+```elixir
+iex> RustlerRead.benchmark();
+```
