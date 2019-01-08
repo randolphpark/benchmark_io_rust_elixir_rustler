@@ -1,3 +1,5 @@
-# benchmark_io_rust_elixir_rustler
+# Benchmark expriment on file read
 
-Binary file read comparison between Elixir, Rust and Elixir+NIF(Rustler)
+Binary file read comparison between Elixir, Rust and Elixir+NIF(Rustler).
+
+

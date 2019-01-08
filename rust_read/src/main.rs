@@ -36,7 +36,7 @@ fn check_pwn(
     buffer: &mut [u8; 14],
 ) -> u32 {
     if end - start == 0 {
-        let record = read_line_fn(f, buffer, start);
+        let record = read_line(f, buffer, start);
         if &target[0..10] == &record[0..10] {
             let mut rdr = Cursor::new(&record[10..]);
             rdr.read_u32::<BigEndian>().unwrap()
@@ -44,7 +44,7 @@ fn check_pwn(
             0
         }
     } else if end - start == 1 {
-        let record = read_line_fn(f, buffer, start);
+        let record = read_line(f, buffer, start);
         if &target[0..10] == &record[0..10] {
             let mut rdr = Cursor::new(&record[10..]);
             rdr.read_u32::<BigEndian>().unwrap()
@@ -53,7 +53,7 @@ fn check_pwn(
         }
     } else {
         let middle_index = start + (end - start) / 2;
-        let record = read_line_fn(f, buffer, middle_index);
+        let record = read_line(f, buffer, middle_index);
 
         if &target[0..10] > &record[0..10] {
             check_pwn(middle_index, end, target, f, buffer)
@@ -66,7 +66,7 @@ fn check_pwn(
     }
 }
 
-pub fn read_line_fn(f: &mut std::fs::File, buffer: &mut [u8; 14], line_num: u64) -> [u8; 14] {
+pub fn read_line(f: &mut std::fs::File, buffer: &mut [u8; 14], line_num: u64) -> [u8; 14] {
     f.seek(SeekFrom::Start(line_num * RECORD_SIZE))
         .expect("Fail to seek record");
     f.read_exact(buffer).expect("Fail to read buffer");
@@ -100,7 +100,6 @@ pub fn read_line_30_times() {
 #[bench]
 fn benchmark_read_single(b: &mut Bencher) {
     b.iter(|| read_single_line(1));
-    // =~ 10,584 ns/iter (+/- 504)
 }
 
 #[bench]
@@ -115,7 +114,6 @@ fn benchmark_read_30_time(b: &mut Bencher) {
             read_single_line(*val);
         }
     });
-    // =~ 315,286 ns/iter (+/- 12,533)
 }
 
 #[bench]
@@ -123,8 +121,6 @@ fn benchmark_read_30_time_with_seek(b: &mut Bencher) {
     b.iter(|| {
         read_line_30_times();
     });
-    // =~ 60,713 ns/iter (+/- 3,638)
-    // single read: 10,584 ns/iter (+/- 504)
 }
 
 #[bench]
