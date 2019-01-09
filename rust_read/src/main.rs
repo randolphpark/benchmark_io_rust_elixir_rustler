@@ -9,7 +9,7 @@ use std::io::Cursor;
 use std::io::SeekFrom;
 use test::Bencher;
 
-static FILE_PATH: &str = "hibp_binary";
+static FILE_PATH: &str = "database_fixture";
 static RECORD_SIZE: u64 = 14; // bytes
 
 fn main() {

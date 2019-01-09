@@ -12,6 +12,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "haveibeenpwned"
+version = "0.1.0"
+source = "git+https://github.com/randolphpark/haveibeenpwned_rust#39cb10904f673d3880b64f958bf949da2a3d2d7b"
+dependencies = [
+ "byteorder 1.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "heck"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -29,6 +37,7 @@ name = "nifreader"
 version = "0.1.0"
 dependencies = [
  "byteorder 1.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "haveibeenpwned 0.1.0 (git+https://github.com/randolphpark/haveibeenpwned_rust)",
  "lazy_static 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustler 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustler_codegen 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -102,6 +111,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [metadata]
 "checksum byteorder 1.2.7 (registry+https://github.com/rust-lang/crates.io-index)" = "94f88df23a25417badc922ab0f5716cc1330e87f71ddd9203b3a3ccd9cedf75d"
 "checksum erlang_nif-sys 0.6.4 (registry+https://github.com/rust-lang/crates.io-index)" = "9bc72dbc2c220693a2a009ec97705c144ea5cc5db703df43feb903663c999536"
+"checksum haveibeenpwned 0.1.0 (git+https://github.com/randolphpark/haveibeenpwned_rust)" = "<none>"
 "checksum heck 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "20564e78d53d2bb135c343b3f47714a56af2061f1c928fdb541dc7b9fdd94205"
 "checksum lazy_static 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1"
 "checksum quote 0.3.15 (registry+https://github.com/rust-lang/crates.io-index)" = "7a6e920b65c65f10b2ae65c831a81a073a89edd28c7cce89475bff467ab4167a"

@@ -1,0 +1,8 @@
+[package]
+name = "example"
+version = "0.1.0"
+authors = ["randolphpark <randolph@alembic.com.au>"]
+edition = "2018"
+
+[dependencies]
+rust_read = { path = "../../."}

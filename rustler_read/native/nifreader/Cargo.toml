@@ -13,3 +13,4 @@ rustler = "0.18.0"
 rustler_codegen = "0.18.0"
 lazy_static = "1.0"
 byteorder = "1.2.7"
+haveibeenpwned = { git = "https://github.com/randolphpark/haveibeenpwned_rust" }

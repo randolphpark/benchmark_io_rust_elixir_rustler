@@ -2,6 +2,7 @@
 #[macro_use] extern crate rustler_codegen;
 #[macro_use] extern crate lazy_static;
 #[macro_use] extern crate byteorder;
+#[macro_use] extern crate haveibeenpwned;
 
 use rustler::{Env, Term, NifResult, Encoder};
 use std::io::prelude::*;
@@ -12,7 +13,7 @@ use byteorder::{BigEndian, ReadBytesExt};
 use std::fs;
 use std::io::Cursor;
 
-static FILE_PATH: &str = "native/nifreader/hibp_binary";
+static FILE_PATH: &str = "native/nifreader/database_fixture";
 // native/nifreader/hibp_binary
 static RECORD_SIZE: u64 = 14; // bytes
 mod atoms {
@@ -30,8 +31,15 @@ rustler_export_nifs! {
       ("seek_line", 1, seek_line),
       ("seek_29_times", 1, seek_29_times),
       ("pwn_check", 1, pwn_check),
+      ("haveibeenpwned", 1, haveibeenpwned),
     ],
     None
+}
+
+fn haveibeenpwned<'a>(env: Env<'a>, args: &[Term<'a>]) -> NifResult<Term<'a>> {
+    let sha: Vec<u8> = try!(args[0].decode());
+    let result = haveibeenpwned::check_pwned(from_slice(&sha));
+    Ok(result.encode(env))
 }
 
 fn seek_line<'a>(env: Env<'a>, args: &[Term<'a>]) -> NifResult<Term<'a>> {

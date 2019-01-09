@@ -27,6 +27,8 @@ defmodule RustlerRead do
         "binary_search_ruslter_no_match_3" => fn -> pwn(no_match_3) end,
         "binary_search_ruslter_no_match_4" => fn -> pwn(no_match_4) end,
         "binary_search_ruslter_no_match_5" => fn -> pwn(no_match_5) end,
+        "binary_search_ruslter_no_match_lib" => fn -> haveibeenpwned(no_match_5) end,
+        "binary_search_ruslter_match_lib" => fn -> haveibeenpwned(match_target) end,
         "binary_search_ruslter_random" => fn -> pwn_random() end,
         "fixed_index_pread" => fn -> read_file(file, 1) end,
         "random_index_pread" => fn -> multiple_pread(file) end,
@@ -41,6 +43,10 @@ defmodule RustlerRead do
 
   def pwn(target) do
     NifReader.pwn_check(target)
+  end
+
+  def haveibeenpwned(target) do
+    NifReader.haveibeenpwned(target)
   end
 
   def pwn_random() do
@@ -62,4 +68,5 @@ defmodule NifReader do
     def seek_line(_a), do: :erlang.nif_error(:nif_not_loaded)
     def seek_29_times(_a), do: :erlang.nif_error(:nif_not_loaded)
     def pwn_check(_a), do: :erlang.nif_error(:nif_not_loaded)
+    def haveibeenpwned(_a), do: :erlang.nif_error(:nif_not_loaded)
 end
